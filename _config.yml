@@ -8,13 +8,13 @@ subtitle: '敖苛的博客'
 description: "Hi, I'm Kayro"
 keywords: 敖苛的博客, 敖苛, Kayro's Blog, Kayro
 author: Kayro
-language: zh
+language: zh-CN
 timezone: 'Asia/Shanghai'
 
 # URL
 ## Set your site url here. For example, if you use GitHub Page, set url as 'https://username.github.io/project'
-url: http://example.com
-permalink: :year/:month/:day/:title/
+url: http://blog.kayro.cn
+permalink: posts/:abbrlink/
 permalink_defaults:
 pretty_urls:
   trailing_index: true # Set to false to remove trailing 'index.html' from permalinks
@@ -50,10 +50,12 @@ highlight:
   tab_replace: ''
   wrap: true
   hljs: false
+  exclude_languages: ['mermaid']
 prismjs:
   preprocess: true
   line_number: true
   tab_replace: ''
+  exclude_languages: ['mermaid']
 
 # Home page setting
 # path: Root path for your blogs index page. (default = '')
@@ -97,6 +99,61 @@ ignore:
 ## Plugins: https://hexo.io/plugins/
 ## Themes: https://hexo.io/themes/
 theme: butterfly
+
+markdown:
+  plugins:
+    - '@renbaoshuo/markdown-it-katex'
+
+search:
+  path: search.json
+  field: post
+  content: true
+  format: striptags
+
+# abbrlink config
+abbrlink:
+  alg: crc16      # Algorithm used to calc abbrlink. Support crc16(default) and crc32
+  rep: dec        # Representation of abbrlink in URLs. Support dec(default) and hex
+  drafts: false   # Whether to generate abbrlink for drafts. (false in default)
+  force: false    # Enable force mode. In this mode, the plugin will ignore the cache, and calc the abbrlink for every post even it already had an abbrlink. (false in default)
+  writeback: true # Whether to write changes to front-matters back to the actual markdown files. (true in default)
+
+feed:
+  enable: true
+  type: rss2
+  path: rss.xml
+  limit: 20
+  hub:
+  content:
+  content_limit: 140
+  content_limit_delim: ' '
+  order_by: -date
+  icon: icon.png
+  autodiscovery: true
+
+nofollow:
+  enable: true
+  field: site
+  exclude:
+    # - 'exclude1.com'
+    # - 'exclude2.com'
+
+sitemap:
+  path:
+    - sitemap.xml
+    - sitemap.txt
+  # template: ./sitemap_template.xml
+  # template_txt: ./sitemap_template.txt
+  rel: false
+  tags: true
+  categories: true
+
+baidusitemap:
+  path: baidusitemap.xml
+
+aplayer:
+  meting: true
+  asset_inject: false
 
 # Deployment
 ## Docs: https://hexo.io/docs/one-command-deployment
